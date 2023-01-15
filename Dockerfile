@@ -19,8 +19,8 @@ RUN curl http://crosstool-ng.org/download/crosstool-ng/crosstool-ng-1.25.0.tar.x
     && /home/rust/ct-ng/bin/ct-ng build \
     && chmod u+w  /home/rust/x-tools/x86_64-ubuntu14.04-linux-gnu \
     && chmod u+w  /home/rust/x-tools/x86_64-ubuntu14.04-linux-gnu/* \
-    && curl https://www.openssl.org/source/openssl-3.0.7.tar.gz | tar -xzf - \
-    && cd openssl-3.0.7  \
+    && curl https://www.openssl.org/source/openssl-1.1.1s.tar.gz | tar -xzf - \
+    && cd openssl-1.1.1s  \
     && ./config --prefix=/home/rust/x-tools/x86_64-ubuntu14.04-linux-gnu \
     && make CC=x86_64-ubuntu14.04-linux-gnu-cc \
     && make install_sw
