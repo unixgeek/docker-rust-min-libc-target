@@ -38,3 +38,5 @@ ENV PATH /usr/local/x-tools/x86_64-ubuntu14.04-linux-gnu/bin:${PATH}
 ENV OPENSSL_DIR /usr/local/x-tools/x86_64-ubuntu14.04-linux-gnu
 USER rust
 WORKDIR /src
+
+ENTRYPOINT ["cargo"]
