@@ -7,7 +7,7 @@ Compile
 
     docker container run --rm --volume "$(pwd)":/src     \
         --init --tty --user "$(id --user):$(id --group)" \
-        unixgeek2/docker-rust-min-libc-target cargo build --release
+        unixgeek2/rust-min-libc build --release
 Check glibc dependencies
 
     objdump -T BINARY | grep GLIBC | sed 's/.*GLIBC_\([.0-9]*\).*/\1/g' | sort -Vu
