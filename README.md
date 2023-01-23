@@ -1,4 +1,4 @@
-# Docker Rust Minimum glibc Target ![Docker Cloud Automated build](https://img.shields.io/docker/cloud/automated/unixgeek2/rust-min-libc)
+# Docker Rust Minimum glibc Target ![Docker Cloud Automated build](https://img.shields.io/docker/cloud/automated/unixgeek2/rust-min-libc) ![Docker Image Version (latest by date)](https://img.shields.io/docker/v/unixgeek2/rust-min-libc)
 This Docker image is used to compile Rust targeting a minimum glibc for more portable binaries. It is based on the official
 Rust Docker image and uses a toolchain, built using crosstool-ng, that mirrors glibc from Ubuntu 14.04. It also includes OpenSSL.
 
