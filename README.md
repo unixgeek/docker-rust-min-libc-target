@@ -2,7 +2,6 @@
 This Docker image is used to compile Rust targeting a minimum glibc for more portable binaries. It is based on the official
 Rust Docker image and uses a toolchain, built using crosstool-ng, that mirrors glibc from Ubuntu 14.04. It also includes OpenSSL.
 
-[dockerhub-badge]:https://hub.docker.com/repository/docker/unixgeek2/rust-min-libc/general
 ## Usage
 Compile
 
@@ -25,6 +24,9 @@ A simple Rust binary that uses the openssl crate to base64 encode a string has b
 * rockylinux:9
 * opensuse/tumbleweed:latest
 * opensuse/leap:latest
+
+## Docker Hub
+[rust-min-libc](https://hub.docker.com/r/unixgeek2/rust-min-libc)
 
 ## Credits
 * [crosstool-ng](https://crosstool-ng.github.io/)
