@@ -32,7 +32,9 @@ COPY --from=builder /home/rust/x-tools /usr/local/x-tools
 RUN groupadd -r rust -g 2000 \
     && useradd -m -r -g rust -u 2000 rust \
     && echo "[target.x86_64-unknown-linux-gnu]" > /usr/local/cargo/config \
-    && echo "linker = 'x86_64-ubuntu14.04-linux-gnu-cc'" >> /usr/local/cargo/config
+    && echo "linker = 'x86_64-ubuntu14.04-linux-gnu-cc'" >> /usr/local/cargo/config \
+    && apt-get update \
+    && apt-get install -y --no-install-recommends make libfindbin-libs-perl
 
 ENV PATH /usr/local/x-tools/x86_64-ubuntu14.04-linux-gnu/bin:${PATH}
 ENV OPENSSL_DIR /usr/local/x-tools/x86_64-ubuntu14.04-linux-gnu
