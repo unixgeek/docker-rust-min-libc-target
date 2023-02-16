@@ -21,7 +21,7 @@ RUN curl http://crosstool-ng.org/download/crosstool-ng/crosstool-ng-1.25.0.tar.x
     && chmod u+w  /home/rust/x-tools/x86_64-ubuntu14.04-linux-gnu/*  \
     && curl https://www.openssl.org/source/old/1.0.1/openssl-1.0.1u.tar.gz | tar -xzf - \
     && cd openssl-1.0.1u \
-    && ./config -fPIC --prefix=/home/rust/x-tools/x86_64-ubuntu14.04-linux-gnu \
+    && ./config -fPIC no-shared --prefix=/home/rust/x-tools/x86_64-ubuntu14.04-linux-gnu \
     && make CC=x86_64-ubuntu14.04-linux-gnu-cc \
     && make install_sw
 
