@@ -1,4 +1,4 @@
-FROM debian:bullseye-20221205-slim as builder
+FROM debian:bullseye-20230227-slim as builder
 
 RUN apt-get update \
     && apt-get install -y --no-install-recommends curl ca-certificates build-essential bison flex texinfo unzip help2man gawk libtool-bin libncurses-dev \
@@ -25,7 +25,7 @@ RUN curl http://crosstool-ng.org/download/crosstool-ng/crosstool-ng-1.25.0.tar.x
     && make CC=x86_64-ubuntu14.04-linux-gnu-cc \
     && make install_sw
 
-FROM rust:1.66.1-slim-bullseye
+FROM rust:1.68.0-slim-bullseye
 
 COPY --from=builder /home/rust/x-tools /usr/local/x-tools
 
