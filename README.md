@@ -18,8 +18,10 @@ A simple Rust binary that uses the openssl crate to base64 encode a string has b
 * ubuntu:16.04
 * ubuntu:18.04
 * ubuntu:20.04
+* ubuntu:22.04
 * debian:buster-slim
 * debian:bullseye-slim
+* debian:bookworm-slim
 * rockylinux:8
 * rockylinux:9
 * opensuse/tumbleweed:latest
