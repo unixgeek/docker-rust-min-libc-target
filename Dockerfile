@@ -1,4 +1,4 @@
-FROM debian:bookworm-20230612-slim as builder
+FROM debian:bookworm-20240110-slim as builder
 
 RUN apt-get update \
     && apt-get install -y --no-install-recommends curl ca-certificates build-essential bison flex texinfo unzip help2man gawk libtool-bin libncurses-dev \
@@ -8,14 +8,13 @@ USER rust
 WORKDIR /home/rust
 ENV PATH /home/rust/x-tools/x86_64-ubuntu14.04-linux-gnu/bin:$PATH
 
-RUN curl http://crosstool-ng.org/download/crosstool-ng/crosstool-ng-1.25.0.tar.xz | tar -xJf - \
-    && cd crosstool-ng-1.25.0 \
+RUN curl http://crosstool-ng.org/download/crosstool-ng/crosstool-ng-1.26.0.tar.xz | tar -xJf - \
+    && cd crosstool-ng-1.26.0 \
     && ./configure --prefix=/home/rust/ct-ng \
     && make \
     && make install \
     && cd .. \
     && /home/rust/ct-ng/bin/ct-ng x86_64-ubuntu14.04-linux-gnu \
-    && sed -i'' 's/CT_ZLIB_VERSION="1.2.12"/CT_ZLIB_VERSION="1.2.13"/' .config \
     && /home/rust/ct-ng/bin/ct-ng build \
     && chmod u+w  /home/rust/x-tools/x86_64-ubuntu14.04-linux-gnu \
     && chmod u+w  /home/rust/x-tools/x86_64-ubuntu14.04-linux-gnu/*  \
@@ -25,7 +24,7 @@ RUN curl http://crosstool-ng.org/download/crosstool-ng/crosstool-ng-1.25.0.tar.x
     && make CC=x86_64-ubuntu14.04-linux-gnu-cc \
     && make install_sw
 
-FROM rust:1.70.0-slim-bookworm
+FROM rust:1.75.0-slim-bookworm
 
 COPY --from=builder /home/rust/x-tools /usr/local/x-tools
 
