@@ -22,6 +22,7 @@ the following Docker images:
 * ubuntu:18.04
 * ubuntu:20.04
 * ubuntu:22.04
+* ubuntu:24.04
 * debian:buster-slim
 * debian:bullseye-slim
 * debian:bookworm-slim

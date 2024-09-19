@@ -1,4 +1,4 @@
-FROM debian:bookworm-20240612-slim as builder
+FROM debian:bookworm-20240904-slim as builder
 
 RUN apt-get update \
     && apt-get install -y --no-install-recommends curl ca-certificates build-essential bison flex texinfo unzip help2man gawk libtool-bin libncurses-dev \
@@ -24,7 +24,7 @@ RUN curl http://crosstool-ng.org/download/crosstool-ng/crosstool-ng-1.26.0.tar.x
     && make CC=x86_64-ubuntu14.04-linux-gnu-cc \
     && make install_sw
 
-FROM rust:1.79.0-slim-bookworm
+FROM rust:1.81.0-slim-bookworm
 
 COPY --from=builder /home/rust/x-tools /usr/local/x-tools
 
