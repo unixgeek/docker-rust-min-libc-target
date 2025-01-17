@@ -1,4 +1,4 @@
-FROM debian:bookworm-20240904-slim as builder
+FROM debian:bookworm-20250113-slim AS builder
 
 RUN apt-get update \
     && apt-get install -y --no-install-recommends curl ca-certificates build-essential bison flex texinfo unzip help2man gawk libtool-bin libncurses-dev \
@@ -18,13 +18,13 @@ RUN curl http://crosstool-ng.org/download/crosstool-ng/crosstool-ng-1.26.0.tar.x
     && /home/rust/ct-ng/bin/ct-ng build \
     && chmod u+w  /home/rust/x-tools/x86_64-ubuntu14.04-linux-gnu \
     && chmod u+w  /home/rust/x-tools/x86_64-ubuntu14.04-linux-gnu/*  \
-    && curl https://www.openssl.org/source/old/1.0.1/openssl-1.0.1u.tar.gz | tar -xzf - \
+    && curl --location https://www.openssl.org/source/old/1.0.1/openssl-1.0.1u.tar.gz | tar -xzf - \
     && cd openssl-1.0.1u \
     && ./config -fPIC no-shared --prefix=/home/rust/x-tools/x86_64-ubuntu14.04-linux-gnu \
     && make CC=x86_64-ubuntu14.04-linux-gnu-cc \
     && make install_sw
 
-FROM rust:1.81.0-slim-bookworm
+FROM rust:1.84.0-slim-bookworm
 
 COPY --from=builder /home/rust/x-tools /usr/local/x-tools
 
