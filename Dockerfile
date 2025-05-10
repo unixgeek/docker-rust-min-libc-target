@@ -1,4 +1,4 @@
-FROM debian:bookworm-20250317-slim AS builder
+FROM debian:bookworm-20250428-slim AS builder
 
 RUN apt-get update \
     && apt-get install -y --no-install-recommends curl ca-certificates build-essential bison flex texinfo unzip help2man gawk libtool-bin libncurses-dev \
@@ -6,7 +6,7 @@ RUN apt-get update \
 
 USER rust
 WORKDIR /home/rust
-ENV PATH /home/rust/x-tools/x86_64-ubuntu14.04-linux-gnu/bin:$PATH
+ENV PATH=/home/rust/x-tools/x86_64-ubuntu14.04-linux-gnu/bin:$PATH
 
 RUN curl http://crosstool-ng.org/download/crosstool-ng/crosstool-ng-1.26.0.tar.xz | tar -xJf - \
     && cd crosstool-ng-1.26.0 \
@@ -24,7 +24,7 @@ RUN curl http://crosstool-ng.org/download/crosstool-ng/crosstool-ng-1.26.0.tar.x
     && make CC=x86_64-ubuntu14.04-linux-gnu-cc \
     && make install_sw
 
-FROM rust:1.85.1-slim-bookworm
+FROM rust:1.86.0-slim-bookworm
 
 COPY --from=builder /home/rust/x-tools /usr/local/x-tools
 
@@ -35,8 +35,8 @@ RUN groupadd rust -g 2000 \
     && apt-get update \
     && apt-get install -y --no-install-recommends make libfindbin-libs-perl
 
-ENV PATH /usr/local/x-tools/x86_64-ubuntu14.04-linux-gnu/bin:${PATH}
-ENV OPENSSL_DIR /usr/local/x-tools/x86_64-ubuntu14.04-linux-gnu
+ENV PATH=/usr/local/x-tools/x86_64-ubuntu14.04-linux-gnu/bin:${PATH}
+ENV OPENSSL_DIR=/usr/local/x-tools/x86_64-ubuntu14.04-linux-gnu
 USER rust
 WORKDIR /src
 
