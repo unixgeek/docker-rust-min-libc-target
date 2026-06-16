@@ -1,4 +1,4 @@
-FROM debian:bookworm-20250721-slim AS builder
+FROM debian:bookworm-20260610-slim AS builder
 
 RUN apt-get update \
     && apt-get install -y --no-install-recommends curl ca-certificates build-essential bison flex texinfo unzip help2man gawk libtool-bin libncurses-dev \
@@ -8,8 +8,8 @@ USER rust
 WORKDIR /home/rust
 ENV PATH=/home/rust/x-tools/x86_64-ubuntu14.04-linux-gnu/bin:$PATH
 
-RUN curl http://crosstool-ng.org/download/crosstool-ng/crosstool-ng-1.26.0.tar.xz | tar -xJf - \
-    && cd crosstool-ng-1.26.0 \
+RUN curl http://crosstool-ng.org/download/crosstool-ng/crosstool-ng-1.28.0.tar.xz | tar -xJf - \
+    && cd crosstool-ng-1.28.0 \
     && ./configure --prefix=/home/rust/ct-ng \
     && make \
     && make install \
@@ -17,14 +17,14 @@ RUN curl http://crosstool-ng.org/download/crosstool-ng/crosstool-ng-1.26.0.tar.x
     && /home/rust/ct-ng/bin/ct-ng x86_64-ubuntu14.04-linux-gnu \
     && /home/rust/ct-ng/bin/ct-ng build \
     && chmod u+w  /home/rust/x-tools/x86_64-ubuntu14.04-linux-gnu \
-    && chmod u+w  /home/rust/x-tools/x86_64-ubuntu14.04-linux-gnu/*  \
-    && curl --location https://www.openssl.org/source/old/1.0.1/openssl-1.0.1u.tar.gz | tar -xzf - \
-    && cd openssl-1.0.1u \
+    && chmod u+w  /home/rust/x-tools/x86_64-ubuntu14.04-linux-gnu/*
+RUN curl --location https://github.com/openssl/openssl/releases/download/OpenSSL_1_1_0l/openssl-1.1.0l.tar.gz | tar -xzf - \
+    && cd openssl-1.1.0l \
     && ./config -fPIC no-shared --prefix=/home/rust/x-tools/x86_64-ubuntu14.04-linux-gnu \
     && make CC=x86_64-ubuntu14.04-linux-gnu-cc \
     && make install_sw
 
-FROM rust:1.88.0-slim-bookworm
+FROM rust:1.96-slim-bookworm
 
 COPY --from=builder /home/rust/x-tools /usr/local/x-tools
 
