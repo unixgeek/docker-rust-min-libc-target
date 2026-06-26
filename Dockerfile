@@ -1,4 +1,4 @@
-FROM debian:bookworm-20260610-slim AS builder
+FROM debian:bookworm-20260623-slim AS builder
 
 RUN apt-get update \
     && apt-get install -y --no-install-recommends curl ca-certificates build-essential bison flex texinfo unzip help2man gawk libtool-bin libncurses-dev \
