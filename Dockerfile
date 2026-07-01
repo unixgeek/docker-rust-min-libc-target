@@ -24,7 +24,7 @@ RUN curl --location https://github.com/openssl/openssl/releases/download/OpenSSL
     && make CC=x86_64-ubuntu14.04-linux-gnu-cc \
     && make install_sw
 
-FROM rust:1.96-slim-bookworm
+FROM rust:1.96.1-slim-bookworm
 
 COPY --from=builder /home/rust/x-tools /usr/local/x-tools
 
